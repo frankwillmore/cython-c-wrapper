@@ -1,12 +1,15 @@
 CC = gcc
 
-default: libexamples.a
+#default: libexamples.a
+default: libexamples.so
 
-libexamples.a: examples.o
-	ar rcs $@ $^
+#libexamples.a: examples.o
+libexamples.so: examples.o
+#	ar rcs $@ $^
+	$(CC) -shared examples.o -o libexamples.so
     
 examples.o: examples.c examples.h
-	$(CC) -c $<
+	$(CC) -c -fPIC $<
 
 clean:
-	rm *.o *.a
+	rm -f *.o *.a *.so 
